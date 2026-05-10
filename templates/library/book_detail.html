@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ book.title }} | EpicReads{% endblock %}
+
+{% block content %}
+<main class="detail-page">
+  <section class="book-details-popup detail-card">
+    <div class="book-details-content">
+      {% if book.image %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}" class="book-cover">
+      {% else %}
+        <img src="{% static 'images/book1.png' %}" alt="{{ book.title }}" class="book-cover">
+      {% endif %}
+      <div class="book-info">
+        <p class="eyebrow">{{ book.category.name|default:"Book" }}</p>
+        <h2>{{ book.title }}</h2>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Summary:</strong> {{ book.description }}</p>
+        <p><strong>Status:</strong> {% if book.available %}Available{% else %}Unavailable{% endif %}</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="detail-actions">
+          <a class="welcome-button button-link" href="{% url 'book_list' %}">Back to Books</a>
+          {% if user.is_authenticated %}
+            <a class="welcome-button button-link" href="{% url 'book_update' book.pk %}">Edit</a>
+            <a class="danger-link" href="{% url 'book_delete' book.pk %}">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if recommended_books %}
+    <section class="description detail-recommendations">
+      <h2>Recommended Books</h2>
+      <div class="popularbook">
+        {% for item in recommended_books %}
+          <a class="home-book-card" href="{% url 'book_detail' item.pk %}">
+            {% if item.image %}<img src="{{ item.image.url }}" alt="{{ item.title }}">{% else %}<img src="{% static 'images/book2.png' %}" alt="{{ item.title }}">{% endif %}
+            <p>{{ item.title }}<br><span>by {{ item.author }}</span></p>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</main>
+{% endblock %}
