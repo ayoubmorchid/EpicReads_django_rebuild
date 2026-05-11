@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | EpicReads{% endblock %}
+
+{% block content %}
+<main class="form-page">
+  <div class="book-form-card">
+    <h2>{{ title }}</h2>
+    <form method="post" enctype="multipart/form-data" class="book-edit-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="signup-btn" type="submit">Save Book</button>
+    </form>
+  </div>
+</main>
+{% endblock %}
