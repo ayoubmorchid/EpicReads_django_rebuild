@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ book.title }} | EpicReads{% endblock %}
+
+{% block content %}
+<main class="form-page">
+  <div class="book-form-card delete-card">
+    <h2>Delete Book</h2>
+    <p>Are you sure you want to delete <strong>{{ book.title }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="remove-btn" type="submit">Yes, Delete</button>
+      <a class="welcome-button button-link" href="{% url 'book_detail' book.pk %}">Cancel</a>
+    </form>
+  </div>
+</main>
+{% endblock %}
