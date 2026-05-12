@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Login | EpicReads{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="login-page">
+  <div class="circle1"></div>
+  <div class="circle2"></div>
+
+  <fieldset>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<p class="error-text">{{ form.non_field_errors|striptags }}</p>{% endif %}
+        <div class="input-group">
+          <label for="{{ form.username.id_for_label }}">Username or Email</label>
+          {{ form.username }}
+          {% for error in form.username.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="input-group">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          {% for error in form.password.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+        </div>
+        <button type="submit" class="login-btn">Log In</button>
+      </form>
+
+      <div class="forgot-password">
+        <a href="#" class="forgot-link">Forgot your password?</a>
+      </div>
+
+      <div class="or">Or Log in with</div>
+      <div class="social-login">
+        <a href="#" aria-label="Log in with Facebook"><img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook"></a>
+        <a href="#" aria-label="Log in with Google"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"></a>
+        <a href="#" aria-label="Log in with Twitter"><img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter"></a>
+      </div>
+
+      <div class="signup-redirect">
+        <p>Don't have an account? <a href="{% url 'register' %}" class="signup-link">Sign up here</a></p>
+      </div>
+    </div>
+  </fieldset>
+</div>
+{% endblock %}
