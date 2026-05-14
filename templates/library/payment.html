@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Payment | EpicReads{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+  <h1 class="payment-title">Secure Payment</h1>
+  <form class="payment-form" data-payment-form>
+    <label>Card Number</label>
+    <input type="text" placeholder="1234 5678 9123 4567" maxlength="16" data-card-number required>
+    <label>Card Holder</label>
+    <input type="text" placeholder="Full Name" required>
+    <div class="payment-details">
+      <div>
+        <label>Expiry Date</label>
+        <input type="text" placeholder="MM/YY" maxlength="5" data-expiry required>
+      </div>
+      <div>
+        <label>CVV</label>
+        <input type="text" placeholder="123" maxlength="3" data-cvv required>
+      </div>
+    </div>
+    <p class="error-message" data-payment-error hidden></p>
+    <button type="submit" class="pay-btn">Pay Now</button>
+  </form>
+</div>
+{% endblock %}
