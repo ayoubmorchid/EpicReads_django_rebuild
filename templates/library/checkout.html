@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Checkout | EpicReads{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="checkout-container">
+  <h1 class="checkout-title">Order Summary</h1>
+
+  <div class="checkout-items" data-cart-list>
+    {% if cart_items %}
+      {% for item in cart_items %}
+        <div class="item">
+          {% if item.book.image %}
+            <img src="{{ item.book.image.url }}" alt="{{ item.book.title }}" class="item-image">
+          {% endif %}
+          <div class="item-details">
+            <p class="item-title">{{ item.book.title }}</p>
+            <p class="item-price">{{ item.price }} MAD</p>
+            <p class="item-author">by {{ item.book.author }}</p>
+            <div class="quantity-controls">
+              <form method="post" action="{% url 'cart_update' item.book.pk %}">
+                {% csrf_token %}
+                <button type="submit" name="action" value="decrease" aria-label="Decrease quantity">-</button>
+              </form>
+              <span class="quantity">{{ item.quantity }}</span>
+              <form method="post" action="{% url 'cart_update' item.book.pk %}">
+                {% csrf_token %}
+                <button type="submit" name="action" value="increase" aria-label="Increase quantity">+</button>
+              </form>
+            </div>
+          </div>
+          <div class="cart-line-actions">
+            <p class="item-price">{{ item.subtotal }} MAD</p>
+            <form method="post" action="{% url 'cart_update' item.book.pk %}">
+              {% csrf_token %}
+              <button type="submit" name="action" value="remove" class="remove-btn" title="Remove item">×</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="order-total">
+        <h3>Total: {{ total }} MAD</h3>
+      </div>
+    {% else %}
+      <p class="empty-message">Your cart is empty. Go back to Books and choose a title.</p>
+    {% endif %}
+  </div>
+
+  <div class="checkout-actions">
+    <a href="{% url 'book_list' %}" class="back-btn button-link">Back to Books</a>
+    <button type="button" class="confirm-btn" data-open-shipping {% if not cart_items %}disabled{% endif %}>Proceed to Shipping Information</button>
+  </div>
+
+  <div class="checkout-popup-overlay" data-shipping-popup hidden>
+    <div class="checkout-popup">
+      <h2>Shipping Information</h2>
+      <form class="checkout-shipping-form">
+        <label>Full Name:<input type="text" placeholder="Enter your full name"></label>
+        <label>Location:<input type="text" placeholder="Enter your location"></label>
+        <label>Delivery Note:<input type="text" placeholder="Optional note"></label>
+        <div class="checkout-terms">
+          <input type="checkbox" id="accept-terms">
+          <label for="accept-terms">I accept the terms and conditions</label>
+        </div>
+      </form>
+      <div class="checkout-popup-actions">
+        <button type="button" class="continue-btn" data-close-shipping>Back to Cart</button>
+        <a href="{% url 'payment' %}" class="confirm-btn button-link">Pay with MasterCard</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
