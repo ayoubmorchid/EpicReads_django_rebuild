@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About | EpicReads{% endblock %}
+
+{% block content %}
+<main class="about-modern">
+  <section class="about-hero">
+    <div class="about-hero-copy">
+      <span class="section-kicker">About EpicReads</span>
+      <h1>A digital library built around the joy of discovery.</h1>
+      <p>
+        BookHaven began as a simple idea: make reading feel welcoming, organized,
+        and inspiring for every visitor. EpicReads keeps that promise with a warm
+        visual identity, carefully arranged books, and a calm browsing experience.
+      </p>
+    </div>
+    <div class="about-hero-image">
+      <img src="{% static 'images/photo1.jpg' %}" alt="Library reading atmosphere">
+    </div>
+  </section>
+
+  <section class="about-story">
+    <div>
+      <span class="section-kicker">Our Story</span>
+      <h2>From a class project to a thoughtful reading space</h2>
+    </div>
+    <p>
+      EpicReads was shaped as a practical library platform where readers can browse,
+      search, filter by category, and manage books through a clean Django experience.
+      The project keeps the personality of the original React design while giving it
+      a stronger foundation with server-rendered templates, SQLite data, and real
+      Django authentication.
+    </p>
+  </section>
+
+  <section class="mission-vision-grid">
+    <article>
+      <i class="fa fa-bullseye"></i>
+      <h3>Our Mission</h3>
+      <p>Help readers find useful, enjoyable, and inspiring books without friction.</p>
+    </article>
+    <article>
+      <i class="fa fa-eye"></i>
+      <h3>Our Vision</h3>
+      <p>Build a friendly digital shelf where knowledge and imagination feel close to everyone.</p>
+    </article>
+    <article>
+      <i class="fa fa-compass"></i>
+      <h3>Our Promise</h3>
+      <p>Keep the experience simple, warm, responsive, and easy to grow.</p>
+    </article>
+  </section>
+
+  <section class="reader-love-section">
+    <div class="section-heading">
+      <span class="section-kicker">Why Readers Love Us</span>
+      <h2>Designed for browsing, learning, and returning</h2>
+    </div>
+    <div class="reader-love-grid">
+      <div><strong>Clear categories</strong><span>Move from Roman to Fantasy, Psychology, Technology, and more.</span></div>
+      <div><strong>Beautiful covers</strong><span>Original assets keep the pages rich, familiar, and book-focused.</span></div>
+      <div><strong>Helpful details</strong><span>Each book page gives readers a quick summary and next steps.</span></div>
+      <div><strong>Account support</strong><span>Register, log in, log out, and manage books using Django sessions.</span></div>
+    </div>
+  </section>
+
+  <section class="team-section modern-team">
+    <span class="section-kicker">Team & Community</span>
+    <h2>Built by a small team for curious readers</h2>
+    <p class="team-intro">
+      Behind BookHaven is a community-minded team focused on design, service,
+      organization, and making the collection easy to explore.
+    </p>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="team-header"></div>
+        <img src="{% static 'images/team/hsina.jpg' %}" alt="Lhcen Boussedra" class="team-image">
+        <div class="team-info"><h4>Lhcen Boussedra</h4><p>Manufacturing and design</p><a href="#" class="social-link"><i class="fab fa-facebook"></i></a></div>
+      </div>
+      <div class="team-member">
+        <div class="team-header"></div>
+        <img src="{% static 'images/team/med.jpg' %}" alt="Mohamed Fakir" class="team-image">
+        <div class="team-info"><h4>Mohamed Fakir</h4><p>Manufacturing and design</p><a href="#" class="social-link"><i class="fab fa-facebook"></i></a></div>
+      </div>
+      <div class="team-member">
+        <div class="team-header"></div>
+        <img src="{% static 'images/team/brahim.jpg' %}" alt="Brahim Elallam" class="team-image">
+        <div class="team-info"><h4>Brahim Elallam</h4><p>Marketing</p><a href="#" class="social-link"><i class="fab fa-facebook"></i></a></div>
+      </div>
+      <div class="team-member">
+        <div class="team-header"></div>
+        <img src="{% static 'images/team/ayoub.jpg' %}" alt="Zakaria Nasri" class="team-image">
+        <div class="team-info"><h4>Zakaria Nasri</h4><p>Contact Service</p><a href="#" class="social-link"><i class="fab fa-facebook"></i></a></div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block footer %}
+  {% include "library/partials/footer.html" %}
+{% endblock %}
