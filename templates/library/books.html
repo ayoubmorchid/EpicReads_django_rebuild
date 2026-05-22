@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}EpicReads | Books{% endblock %}
+
+{% block content %}
+<div class="books-container">
+  <div class="title">
+    <h1>Explore Our Books</h1>
+    <p>Find your next favorite read from our diverse collection.</p>
+  </div>
+
+  {% if user.is_authenticated %}
+    <button class="favorites-toggle-btn" type="button" data-favorites-toggle>
+      ♥ Favorites
+    </button>
+
+    <aside class="favorites-popup" data-favorites-panel>
+      <button class="close-btn" type="button" data-favorites-close>&times;</button>
+      <h2>Favorites</h2>
+
+      {% if favorite_books %}
+        <ul>
+          {% for favorite in favorite_books %}
+            <li>
+              {% if favorite.image %}
+                <img src="{{ favorite.image.url }}" alt="{{ favorite.title }}">
+              {% else %}
+                <img src="{% static 'images/book1.png' %}" alt="{{ favorite.title }}">
+              {% endif %}
+              <span>{{ favorite.title }}</span>
+              <form method="post" action="{% url 'favorite_toggle' favorite.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" title="Remove from favorites">&times;</button>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="favorites-empty-small">No favorites yet.</p>
+      {% endif %}
+    </aside>
+  {% endif %}
+
+  <div class="content-container">
+    <aside class="sidebar">
+      <form class="search-bar" method="get" action="{% url 'book_list' %}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search books...">
+        {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category.pk }}">{% endif %}
+        <button type="submit">Search</button>
+      </form>
+
+      <h2>Categories</h2>
+      <ul class="category-list">
+        <li class="category-item {% if not selected_category %}active-category{% endif %}">
+          <span class="category-icon">📚</span>
+          <a class="category-name" href="{% url 'book_list' %}{% if query %}?q={{ query|urlencode }}{% endif %}">All</a>
+        </li>
+        {% for category in categories %}
+          <li class="category-item {% if selected_category.pk == category.pk %}active-category{% endif %}">
+            <span class="category-icon">📖</span>
+            <a class="category-name" href="{% url 'book_list' %}?category={{ category.pk }}{% if query %}&q={{ query|urlencode }}{% endif %}">{{ category.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </aside>
+
+    <div class="books-grid">
+      <div class="category-section">
+        <h3>{% if selected_category %}{{ selected_category.name }}{% elif query %}Search Results{% else %}All Books{% endif %}</h3>
+
+        {% if books %}
+          <div class="book-grid">
+            {% for book in books %}
+              <div class="book">
+                <a href="{% url 'book_detail' book.pk %}">
+                  {% if book.image %}<img src="{{ book.image.url }}" alt="{{ book.title }}">{% else %}<img src="{% static 'images/book1.png' %}" alt="{{ book.title }}">{% endif %}
+                </a>
+                <p>{{ book.title }}</p>
+                <p>{% if book.available %}Available{% else %}Unavailable{% endif %}</p>
+                <div class="actions">
+                  <a class="action-button" href="{% url 'book_detail' book.pk %}">📖 Read</a>
+                  {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'favorite_toggle' book.pk %}" class="inline-action-form">
+                      {% csrf_token %}
+                      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                      <button class="like-btn {% if book.pk in favorite_ids %}liked{% endif %}" type="submit">❤ Like</button>
+                    </form>
+                  {% else %}
+                    <a class="action-button like-link" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">❤ Like</a>
+                  {% endif %}
+                  {% if user.is_authenticated %}
+                    <a class="action-button" href="{% url 'checkout' %}?book={{ book.pk }}">🛒 Buy</a>
+                  {% else %}
+                    <a class="action-button" href="{% url 'login' %}?next={% url 'checkout' %}%3Fbook={{ book.pk }}">🛒 Buy</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          {% if page_obj.has_other_pages %}
+            <nav class="pagination" aria-label="Books pagination">
+              {% if page_obj.has_previous %}
+                <a href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+              {% endif %}
+
+              {% for page_number in page_obj.paginator.page_range %}
+                {% if page_number == page_obj.number %}
+                  <span class="current-page">{{ page_number }}</span>
+                {% elif page_number >= page_obj.number|add:"-2" and page_number <= page_obj.number|add:"2" %}
+                  <a href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_number }}">{{ page_number }}</a>
+                {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                <a href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+              {% endif %}
+            </nav>
+          {% endif %}
+        {% else %}
+          <p class="empty-message">No books available in this category.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
