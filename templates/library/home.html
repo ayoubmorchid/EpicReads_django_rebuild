@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}EpicReads | Home{% endblock %}
+
+{% block content %}
+<section class="home-modern">
+  <div class="home-hero">
+    <div class="home-hero-copy">
+      <span class="section-kicker">BookHaven Library</span>
+      <h1>Discover stories that stay with you.</h1>
+      <p>
+        EpicReads brings warm bookstore charm into a clean digital library,
+        helping every reader find inspiring titles, timeless classics, and new favorites.
+      </p>
+      <div class="home-hero-actions">
+        <a class="welcome-button button-link" href="{% url 'book_list' %}">Explore Books</a>
+        <a class="hero-secondary-link" href="{% url 'about' %}">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>{{ total_books|default:"12" }}+</strong><span>Curated Books</span></div>
+        <div><strong>{{ total_categories|default:"8" }}+</strong><span>Categories</span></div>
+        <div><strong>4.9</strong><span>Reader Rating</span></div>
+      </div>
+    </div>
+
+    <div class="home-hero-art">
+      <div class="hero-book-stack">
+        <img class="hero-main-image" src="{% static 'images/girl.png' %}" alt="Reader illustration">
+        <img class="floating-cover cover-one" src="{% static 'images/book1.png' %}" alt="Featured book cover">
+        <img class="floating-cover cover-two" src="{% static 'images/book4.png' %}" alt="Featured book cover">
+      </div>
+    </div>
+  </div>
+
+  <section class="home-panel featured-panel">
+    <div class="section-heading">
+      <span class="section-kicker">Featured Books</span>
+      <h2>Handpicked reads for curious minds</h2>
+      <p>Start with the books readers reach for again and again.</p>
+    </div>
+    <div class="modern-book-row">
+      {% for book in featured_books %}
+        <a class="home-book-card" href="{% url 'book_detail' book.pk %}">
+          {% if book.image %}<img src="{{ book.image.url }}" alt="{{ book.title }}">{% else %}<img src="{% static 'images/book1.png' %}" alt="{{ book.title }}">{% endif %}
+          <p>{{ book.title }}<br><span>by {{ book.author }}</span></p>
+        </a>
+      {% empty %}
+        {% include "library/partials/home_fallback_books.html" %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="home-panel category-panel">
+    <div class="section-heading">
+      <span class="section-kicker">Popular Categories</span>
+      <h2>Browse by your reading mood</h2>
+    </div>
+    <div class="category-showcase">
+      {% for category in categories %}
+        <a href="{% url 'book_list' %}?category={{ category.pk }}" class="category-tile">
+          <i class="fa fa-book-open"></i>
+          <strong>{{ category.name }}</strong>
+          <span>{{ category.books.count }} books</span>
+        </a>
+      {% empty %}
+        <a href="{% url 'book_list' %}" class="category-tile"><i class="fa fa-book-open"></i><strong>Roman</strong><span>Classic stories</span></a>
+        <a href="{% url 'book_list' %}" class="category-tile"><i class="fa fa-wand-magic-sparkles"></i><strong>Fantasy</strong><span>Magic worlds</span></a>
+        <a href="{% url 'book_list' %}" class="category-tile"><i class="fa fa-brain"></i><strong>Psychology</strong><span>Human insight</span></a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="home-panel why-panel">
+    <div class="section-heading">
+      <span class="section-kicker">Why Choose Us</span>
+      <h2>A calmer, smarter way to choose books</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><i class="fa fa-layer-group"></i><h3>Curated shelves</h3><p>Books are organized by useful categories so readers can move quickly from interest to discovery.</p></div>
+      <div class="why-card"><i class="fa fa-heart"></i><h3>Reader-first design</h3><p>The experience keeps the original warm BookHaven feel while making browsing smooth and focused.</p></div>
+      <div class="why-card"><i class="fa fa-shield-halved"></i><h3>Simple accounts</h3><p>Django authentication keeps accounts, sessions, and book management dependable.</p></div>
+    </div>
+  </section>
+
+  <section class="home-panel featured-panel">
+    <div class="section-heading">
+      <span class="section-kicker">Best Selling Books</span>
+      <h2>Community favorites this season</h2>
+    </div>
+    <div class="modern-book-row">
+      {% for book in selling_books %}
+        <a class="home-book-card" href="{% url 'book_detail' book.pk %}">
+          {% if book.image %}<img src="{{ book.image.url }}" alt="{{ book.title }}">{% else %}<img src="{% static 'images/book2.png' %}" alt="{{ book.title }}">{% endif %}
+          <p>{{ book.title }}<br><span>by {{ book.author }}</span></p>
+        </a>
+      {% empty %}
+        {% include "library/partials/home_fallback_books.html" %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="home-panel testimonial-panel">
+    <div class="section-heading">
+      <span class="section-kicker">Testimonials</span>
+      <h2>What readers say</h2>
+    </div>
+    <div class="testimonial-grid">
+      <blockquote><p>"EpicReads feels like a cozy bookstore online. I can find a meaningful book in minutes."</p><cite>- Sara, Student</cite></blockquote>
+      <blockquote><p>"The categories and book pages make the collection easy to explore without feeling crowded."</p><cite>- Yassine, Reader</cite></blockquote>
+      <blockquote><p>"Warm, simple, and practical. It keeps the joy of browsing alive."</p><cite>- Lina, Teacher</cite></blockquote>
+    </div>
+  </section>
+
+  <section class="home-cta">
+    <div>
+      <span class="section-kicker">Ready to read?</span>
+      <h2>Find the book that fits your next chapter.</h2>
+    </div>
+    <a class="welcome-button button-link" href="{% url 'book_list' %}">Browse Library</a>
+  </section>
+</section>
+{% endblock %}
+
+{% block footer %}
+  {% include "library/partials/footer.html" %}
+{% endblock %}
