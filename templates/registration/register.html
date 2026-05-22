@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up | EpicReads{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="register-page">
+  <div class="circle1"></div>
+  <div class="circle2"></div>
+
+  <fieldset>
+    <div class="register-container">
+      <h2>Sign Up</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<p class="error-text">{{ form.non_field_errors|striptags }}</p>{% endif %}
+        <div class="input-group">
+          <label for="{{ form.username.id_for_label }}">Username</label>
+          {{ form.username }}
+          {% for error in form.username.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="input-group">
+          <label for="{{ form.email.id_for_label }}">Email</label>
+          {{ form.email }}
+          {% for error in form.email.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="input-group">
+          <label for="{{ form.password1.id_for_label }}">Password</label>
+          {{ form.password1 }}
+          {% for error in form.password1.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="input-group">
+          <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+          {{ form.password2 }}
+          {% for error in form.password2.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+      </form>
+
+      <div class="or">Or Sign up with</div>
+      <div class="social-login">
+        <a href="#" aria-label="Sign up with Facebook"><img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook"></a>
+        <a href="#" aria-label="Sign up with Google"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"></a>
+        <a href="#" aria-label="Sign up with Twitter"><img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter"></a>
+      </div>
+
+      <div class="login-redirect">
+        <p>Already have an account? <a href="{% url 'login' %}" class="login-link">Log in here</a></p>
+      </div>
+    </div>
+  </fieldset>
+</div>
+{% endblock %}
