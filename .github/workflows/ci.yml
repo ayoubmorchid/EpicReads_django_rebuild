@@ -9,6 +9,20 @@ on:
 jobs:
   django:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    env:
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/epicreads-django
+      DJANGO_SECRET_KEY: ci-secret-key-for-tests
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,testserver
+      POSTGRES_DB: bookhaven_ci
+      POSTGRES_USER: bookhaven
+      POSTGRES_PASSWORD: bookhaven_password
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
 
     services:
       postgres:
@@ -24,16 +38,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-    env:
-      DJANGO_SECRET_KEY: ci-secret-key-for-tests
-      DJANGO_DEBUG: "False"
-      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,testserver
-      POSTGRES_DB: bookhaven_ci
-      POSTGRES_USER: bookhaven
-      POSTGRES_PASSWORD: bookhaven_password
-      POSTGRES_HOST: 127.0.0.1
-      POSTGRES_PORT: 5432
 
     steps:
       - name: Checkout
@@ -63,10 +67,24 @@ jobs:
         run: python manage.py collectstatic --noinput
 
       - name: Build Docker image
-        run: docker build -t bookhaven-django:ci .
+        run: docker build -t bookhaven-django:ci -t $IMAGE_NAME:${{ github.sha }} -t $IMAGE_NAME:latest .
 
       - name: Verify Docker Compose config
         run: docker compose -f docker-compose.yml config
 
       - name: Verify Docker Compose build
         run: docker compose -f docker-compose.yml build
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Docker image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          docker push $IMAGE_NAME:${{ github.sha }}
+          docker push $IMAGE_NAME:latest
