@@ -32,17 +32,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (favoritesToggle && favoritesPanel) {
     favoritesToggle.addEventListener("click", () => {
-      favoritesPanel.classList.toggle("is-open");
-      favoritesToggle.textContent = favoritesPanel.classList.contains("is-open")
-        ? "Close"
-        : "♥ Favorites";
+      const isOpen = favoritesPanel.classList.toggle("is-open");
+      favoritesToggle.setAttribute("aria-expanded", String(isOpen));
+      favoritesToggle.innerHTML = isOpen
+        ? '<i class="fa fa-xmark" aria-hidden="true"></i> Close'
+        : '<i class="fa fa-heart" aria-hidden="true"></i> Favorites';
     });
   }
 
   if (favoritesClose && favoritesPanel && favoritesToggle) {
     favoritesClose.addEventListener("click", () => {
       favoritesPanel.classList.remove("is-open");
-      favoritesToggle.textContent = "♥ Favorites";
+      favoritesToggle.setAttribute("aria-expanded", "false");
+      favoritesToggle.innerHTML = '<i class="fa fa-heart" aria-hidden="true"></i> Favorites';
     });
   }
 
