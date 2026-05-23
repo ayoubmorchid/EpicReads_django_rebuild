@@ -1,15 +1,28 @@
-# BookHaven Django
+# EpicReads / BookHaven Django
 
-BookHaven Django is a server-rendered Django application for browsing books, categories, favorites, authentication, checkout, and payment screens. The project is now structured for a professional DevOps workflow with Docker, PostgreSQL, environment-based settings, and GitHub Actions CI.
+A server-rendered Django bookstore-style application for browsing books, categories, favorites, authentication, checkout, and payment screens.
 
-## Stack
+This project is presented as a junior full-stack and DevOps learning project. It shows how a Django application can be structured with environment-based settings, Docker, PostgreSQL, static file handling, tests, and GitHub Actions CI.
+
+## Features
+
+- Public book browsing pages
+- Book categories and detail pages
+- User authentication screens
+- Favorites, cart, checkout, and payment flow screens
+- Admin-managed book and media content
+- Static and media file handling
+- Docker setup with PostgreSQL
+- GitHub Actions workflow for checks, tests, static collection, and Docker build verification
+
+## Tech Stack
 
 - Python 3.12
-- Django
-- PostgreSQL for Docker/production
+- Django 5
+- PostgreSQL for Docker/production-like setup
 - SQLite fallback for quick local development
 - Gunicorn
-- WhiteNoise for static files
+- WhiteNoise
 - Docker and Docker Compose
 - GitHub Actions CI
 
@@ -17,45 +30,48 @@ BookHaven Django is a server-rendered Django application for browsing books, cat
 
 ```text
 bookhaven_django/
-├── bookhaven_django/          # Django project settings, ASGI, WSGI, root URLs
-├── library/                   # Django app: models, forms, views, URLs, admin, migrations
-├── templates/                 # Django templates
-├── static/                    # Source static assets
-├── media/                     # Uploaded and seeded book cover images
-├── scripts/entrypoint.sh      # Container startup: wait DB, migrate, collectstatic, run command
-├── .github/workflows/ci.yml   # GitHub Actions pipeline
-├── Dockerfile
-├── docker-compose.yml
-├── .dockerignore
-├── .env.example
-├── requirements.txt
-└── manage.py
+|-- bookhaven_django/          # Django project settings, ASGI, WSGI, root URLs
+|-- library/                   # Django app: models, forms, views, URLs, admin, migrations
+|-- templates/                 # Django templates
+|-- static/                    # Source static assets
+|-- media/                     # Uploaded and seeded book cover images
+|-- scripts/entrypoint.sh      # Container startup helper
+|-- .github/workflows/ci.yml   # GitHub Actions pipeline
+|-- Dockerfile
+|-- docker-compose.yml
+|-- .dockerignore
+|-- .env.example
+|-- requirements.txt
+`-- manage.py
 ```
 
-## Environment Variables
+## Local Setup Without Docker
 
-Copy the example file before running Docker:
+```powershell
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+By default, if PostgreSQL variables are not set, Django uses local SQLite.
+
+## Run With Docker
+
+Copy the example environment file first:
 
 ```bash
 cp .env.example .env
 ```
 
-Important variables:
-
-- `DJANGO_SECRET_KEY`: production secret key
-- `DJANGO_DEBUG`: `True` or `False`
-- `DJANGO_ALLOWED_HOSTS`: comma-separated allowed hosts
-- `DJANGO_CSRF_TRUSTED_ORIGINS`: comma-separated trusted origins
-- `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`: PostgreSQL credentials
-- `DJANGO_PORT`: host port exposed by Docker Compose
-
-## Run With Docker
+Start the application:
 
 ```bash
 docker compose up --build
 ```
 
-Then open:
+Open:
 
 ```text
 http://127.0.0.1:8000/
@@ -68,59 +84,43 @@ docker compose down
 docker compose down -v
 docker compose logs -f web
 docker compose exec web python manage.py createsuperuser
-docker compose exec web python manage.py shell
 ```
 
-## Run Locally Without Docker
+## Environment Variables
 
-```powershell
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-```
+Important variables:
 
-By default, if PostgreSQL variables are not set, Django uses local SQLite.
+- `DJANGO_SECRET_KEY`
+- `DJANGO_DEBUG`
+- `DJANGO_ALLOWED_HOSTS`
+- `DJANGO_CSRF_TRUSTED_ORIGINS`
+- `POSTGRES_DB`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+- `DJANGO_PORT`
 
-## Static And Media Files
+## CI And DevOps Notes
 
-- Source static files are in `static/`
-- Collected static files go to `staticfiles/`
-- Uploaded/media files are stored in `media/`
-- Docker Compose stores static and media data in named volumes
+The GitHub Actions workflow runs on pushes and pull requests targeting `main`.
 
-## CI/CD
+The pipeline checks:
 
-The GitHub Actions pipeline in `.github/workflows/ci.yml` runs on every push and pull request targeting `main`.
+- Python dependency installation
+- `python manage.py check`
+- database migrations
+- Django tests
+- static file collection
+- Docker image build
+- Docker Compose configuration and build
 
-Pipeline steps:
+## What I Practiced
 
-- install Python 3.12
-- install dependencies
-- run `python manage.py check`
-- run migrations
-- run Django tests
-- run `collectstatic`
-- build the Docker image
-- validate and build Docker Compose services
+- Organizing a Django project for clearer local and Docker-based development
+- Using environment variables instead of hard-coded production settings
+- Connecting Django with PostgreSQL in Docker Compose
+- Adding a CI workflow for automated checks and build validation
+- Improving Git workflow with feature branches and pull requests
 
-## Git Commands
+## Status
 
-```bash
-git init
-git add .
-git commit -m "Prepare Django project for Docker and CI"
-git branch -M main
-git remote add origin https://github.com/<your-user>/<your-repo>.git
-git push -u origin main
-```
-
-## Production Notes
-
-- Set `DJANGO_DEBUG=False`
-- Use a strong `DJANGO_SECRET_KEY`
-- Set real `DJANGO_ALLOWED_HOSTS`
-- Set `DJANGO_CSRF_TRUSTED_ORIGINS` for HTTPS domains
-- Use managed PostgreSQL or a secured database service
-- Serve media files through object storage or a reverse proxy in production
+Portfolio learning project. The application is suitable for demonstrating Django fundamentals, Docker setup, CI basics, and project documentation.
