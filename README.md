@@ -1,28 +1,34 @@
-# BookHaven Django
+# EpicReads Django
 
-BookHaven Django is a server-rendered Django application for browsing books, categories, favorites, authentication, checkout, and payment screens. The project is now structured for a professional DevOps workflow with Docker, PostgreSQL, environment-based settings, and GitHub Actions CI.
+[![CI](https://github.com/ayoubmorchid/EpicReads_django_rebuild/actions/workflows/ci.yml/badge.svg)](https://github.com/ayoubmorchid/EpicReads_django_rebuild/actions/workflows/ci.yml)
+
+EpicReads is a server-rendered Django library application for browsing books,
+categories, favorites, authentication, checkout, and payment screens. The project
+is prepared for a DevOps workflow with Git branches, Docker, PostgreSQL,
+automated tests, and GitHub Actions CI/CD.
 
 ## Stack
 
 - Python 3.12
 - Django
-- PostgreSQL for Docker/production
-- SQLite fallback for quick local development
+- PostgreSQL with Docker Compose
+- SQLite fallback for local development without Docker
 - Gunicorn
-- WhiteNoise for static files
+- WhiteNoise
 - Docker and Docker Compose
-- GitHub Actions CI
+- GitHub Actions
+- GitHub Container Registry
 
 ## Project Structure
 
 ```text
 bookhaven_django/
-├── bookhaven_django/          # Django project settings, ASGI, WSGI, root URLs
-├── library/                   # Django app: models, forms, views, URLs, admin, migrations
+├── bookhaven_django/          # Django settings, ASGI, WSGI, root URLs
+├── library/                   # App: models, forms, views, URLs, admin, migrations
 ├── templates/                 # Django templates
-├── static/                    # Source static assets
-├── media/                     # Uploaded and seeded book cover images
-├── scripts/entrypoint.sh      # Container startup: wait DB, migrate, collectstatic, run command
+├── static/                    # CSS, JavaScript, and source assets
+├── media/                     # Uploaded and seeded book covers
+├── scripts/entrypoint.sh      # Container startup script
 ├── .github/workflows/ci.yml   # GitHub Actions pipeline
 ├── Dockerfile
 ├── docker-compose.yml
@@ -32,9 +38,30 @@ bookhaven_django/
 └── manage.py
 ```
 
+## Run With Docker
+
+```bash
+docker compose up --build
+```
+
+Open:
+
+```text
+http://localhost:8000/
+```
+
+Useful commands:
+
+```bash
+docker compose down
+docker compose logs -f web
+docker compose exec web python manage.py createsuperuser
+docker compose exec web python manage.py shell
+```
+
 ## Environment Variables
 
-Copy the example file before running Docker:
+Copy the example file before running Docker if you want custom values:
 
 ```bash
 cp .env.example .env
@@ -42,36 +69,17 @@ cp .env.example .env
 
 Important variables:
 
-- `DJANGO_SECRET_KEY`: production secret key
-- `DJANGO_DEBUG`: `True` or `False`
-- `DJANGO_ALLOWED_HOSTS`: comma-separated allowed hosts
-- `DJANGO_CSRF_TRUSTED_ORIGINS`: comma-separated trusted origins
-- `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`: PostgreSQL credentials
-- `DJANGO_PORT`: host port exposed by Docker Compose
+- `DJANGO_SECRET_KEY`
+- `DJANGO_DEBUG`
+- `DJANGO_ALLOWED_HOSTS`
+- `DJANGO_CSRF_TRUSTED_ORIGINS`
+- `DJANGO_SERVE_MEDIA`
+- `DJANGO_PORT`
+- `POSTGRES_DB`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
 
-## Run With Docker
-
-```bash
-docker compose up --build
-```
-
-Then open:
-
-```text
-http://127.0.0.1:8000/
-```
-
-Useful Docker commands:
-
-```bash
-docker compose down
-docker compose down -v
-docker compose logs -f web
-docker compose exec web python manage.py createsuperuser
-docker compose exec web python manage.py shell
-```
-
-## Run Locally Without Docker
+## Run Without Docker
 
 ```powershell
 python -m venv venv
@@ -81,46 +89,57 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-By default, if PostgreSQL variables are not set, Django uses local SQLite.
+When PostgreSQL variables are not set, Django uses local SQLite.
 
-## Static And Media Files
+## Tests
 
-- Source static files are in `static/`
-- Collected static files go to `staticfiles/`
-- Uploaded/media files are stored in `media/`
-- Docker Compose stores static and media data in named volumes
+```bash
+python manage.py check
+python manage.py test
+python manage.py collectstatic --noinput
+```
 
 ## CI/CD
 
-The GitHub Actions pipeline in `.github/workflows/ci.yml` runs on every push and pull request targeting `main`.
+The GitHub Actions workflow runs on:
+
+- every push to `main`
+- every pull request targeting `main`
 
 Pipeline steps:
 
-- install Python 3.12
-- install dependencies
-- run `python manage.py check`
-- run migrations
-- run Django tests
-- run `collectstatic`
+- install Python dependencies
+- run Django system checks
+- apply migrations
+- run automated tests
+- collect static files
 - build the Docker image
 - validate and build Docker Compose services
+- publish the Docker image to GitHub Container Registry on successful `main` pushes
 
-## Git Commands
+Published image:
 
-```bash
-git init
-git add .
-git commit -m "Prepare Django project for Docker and CI"
-git branch -M main
-git remote add origin https://github.com/<your-user>/<your-repo>.git
-git push -u origin main
+```text
+ghcr.io/ayoubmorchid/epicreads-django:latest
 ```
+
+## Git Workflow
+
+The project uses:
+
+- `main` for production-ready code
+- `dev` for integration
+- `feature/*` branches for focused work
+- merge commits to preserve branch history
+
+Commit messages follow a clear conventional style such as `feat:`, `fix:`,
+`style:`, `chore:`, and `merge:`.
 
 ## Production Notes
 
 - Set `DJANGO_DEBUG=False`
 - Use a strong `DJANGO_SECRET_KEY`
-- Set real `DJANGO_ALLOWED_HOSTS`
-- Set `DJANGO_CSRF_TRUSTED_ORIGINS` for HTTPS domains
+- Configure real `DJANGO_ALLOWED_HOSTS`
+- Configure `DJANGO_CSRF_TRUSTED_ORIGINS` for HTTPS domains
 - Use managed PostgreSQL or a secured database service
 - Serve media files through object storage or a reverse proxy in production
