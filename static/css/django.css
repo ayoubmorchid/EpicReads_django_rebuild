@@ -1704,3 +1704,222 @@
 .pagination .current-page {
   border-radius: 999px;
 }
+
+/* Style refresh: supporting pages and forms */
+.about-hero,
+.about-story,
+.reader-love-section,
+.modern-team,
+.detail-card,
+.book-form-card,
+.favorites-empty,
+.favorite-card,
+.checkout-items,
+.payment-form,
+.contact-form,
+.contact-map {
+  background: #fffaf5;
+  border: 1px solid rgba(216, 185, 149, 0.72);
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(52, 36, 26, 0.12);
+}
+
+.about-hero {
+  background:
+    linear-gradient(135deg, rgba(255, 250, 245, 0.95), rgba(244, 223, 200, 0.68)),
+    #fffaf5;
+}
+
+.about-hero-image img,
+.book-cover,
+.favorite-card img,
+.item-image {
+  border-radius: 6px;
+}
+
+.mission-vision-grid article,
+.reader-love-grid div,
+.team-member {
+  border-color: rgba(216, 185, 149, 0.72);
+  border-radius: 8px;
+  box-shadow: 0 14px 30px rgba(52, 36, 26, 0.11);
+}
+
+.mission-vision-grid i {
+  background: var(--accent-soft);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+}
+
+.team-member:hover {
+  box-shadow: 0 22px 42px rgba(52, 36, 26, 0.18);
+  transform: translateY(-6px);
+}
+
+.team-header {
+  background:
+    linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+.social-link:hover {
+  color: var(--hover-color);
+}
+
+.contact-container {
+  padding: 112px clamp(16px, 4vw, 44px) 64px;
+}
+
+.intro-text {
+  margin: 0 auto 34px;
+  max-width: 820px;
+  text-align: center;
+}
+
+.intro-text h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.12;
+}
+
+.intro-text p {
+  color: var(--subtext-color);
+}
+
+.contact-section {
+  align-items: stretch;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  margin: 0 auto;
+  max-width: 1120px;
+}
+
+.contact-form {
+  padding: 30px;
+}
+
+.contact-form h3 {
+  color: var(--text-color);
+  font-size: 1.8rem;
+  margin-top: 0;
+}
+
+.form-group {
+  display: grid;
+  gap: 14px;
+}
+
+.input,
+.textarea,
+.book-edit-form textarea,
+.book-edit-form select,
+.book-edit-form input[type="file"],
+.shipping-form input,
+.payment-form input {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+}
+
+.textarea {
+  min-height: 150px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.input:focus,
+.textarea:focus,
+.book-edit-form textarea:focus,
+.book-edit-form select:focus,
+.shipping-form input:focus,
+.payment-form input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(214, 155, 95, 0.16);
+  outline: none;
+}
+
+.contact-info {
+  border-top: 1px solid var(--border-color);
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 22px 0 0;
+}
+
+.contact-info li {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.contact-info i {
+  color: var(--primary-color);
+}
+
+.contact-info a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.contact-map {
+  overflow: hidden;
+  min-height: 420px;
+}
+
+.contact-map iframe {
+  display: block;
+  height: 100%;
+  min-height: 420px;
+  width: 100%;
+}
+
+.detail-page,
+.form-page,
+.favorites-page,
+.checkout-container,
+.payment-container {
+  background: transparent;
+}
+
+.danger-link,
+.remove-btn {
+  border-radius: 999px;
+}
+
+.login-container,
+.register-container,
+.container,
+.checkout-popup {
+  background: rgba(255, 250, 245, 0.96);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(52, 36, 26, 0.16);
+}
+
+.login-page fieldset,
+.register-page fieldset {
+  border: none;
+  box-shadow: none;
+}
+
+.login-btn,
+.signup-btn,
+.reset-button,
+.confirm-btn,
+.back-btn,
+.continue-btn,
+.pay-btn {
+  border-radius: 999px;
+  box-shadow: 0 12px 22px rgba(52, 36, 26, 0.16);
+}
+
+@media (max-width: 900px) {
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+}
