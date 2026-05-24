@@ -12,7 +12,7 @@
 
   {% if user.is_authenticated %}
     <button class="favorites-toggle-btn" type="button" data-favorites-toggle>
-      ♥ Favorites
+      <i class="fa fa-heart" aria-hidden="true"></i> Favorites
     </button>
 
     <aside class="favorites-popup" data-favorites-panel>
@@ -54,12 +54,12 @@
       <h2>Categories</h2>
       <ul class="category-list">
         <li class="category-item {% if not selected_category %}active-category{% endif %}">
-          <span class="category-icon">📚</span>
+          <span class="category-icon"><i class="fa fa-layer-group" aria-hidden="true"></i></span>
           <a class="category-name" href="{% url 'book_list' %}{% if query %}?q={{ query|urlencode }}{% endif %}">All</a>
         </li>
         {% for category in categories %}
           <li class="category-item {% if selected_category.pk == category.pk %}active-category{% endif %}">
-            <span class="category-icon">📖</span>
+            <span class="category-icon"><i class="fa fa-book-open" aria-hidden="true"></i></span>
             <a class="category-name" href="{% url 'book_list' %}?category={{ category.pk }}{% if query %}&q={{ query|urlencode }}{% endif %}">{{ category.name }}</a>
           </li>
         {% endfor %}
@@ -80,20 +80,20 @@
                 <p>{{ book.title }}</p>
                 <p>{% if book.available %}Available{% else %}Unavailable{% endif %}</p>
                 <div class="actions">
-                  <a class="action-button" href="{% url 'book_detail' book.pk %}">📖 Read</a>
+                  <a class="action-button" href="{% url 'book_detail' book.pk %}"><i class="fa fa-book-open" aria-hidden="true"></i> Read</a>
                   {% if user.is_authenticated %}
                     <form method="post" action="{% url 'favorite_toggle' book.pk %}" class="inline-action-form">
                       {% csrf_token %}
                       <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                      <button class="like-btn {% if book.pk in favorite_ids %}liked{% endif %}" type="submit">❤ Like</button>
+                      <button class="like-btn {% if book.pk in favorite_ids %}liked{% endif %}" type="submit"><i class="fa fa-heart" aria-hidden="true"></i> Like</button>
                     </form>
                   {% else %}
-                    <a class="action-button like-link" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">❤ Like</a>
+                    <a class="action-button like-link" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}"><i class="fa fa-heart" aria-hidden="true"></i> Like</a>
                   {% endif %}
                   {% if user.is_authenticated %}
-                    <a class="action-button" href="{% url 'checkout' %}?book={{ book.pk }}">🛒 Buy</a>
+                    <a class="action-button" href="{% url 'checkout' %}?book={{ book.pk }}"><i class="fa fa-cart-shopping" aria-hidden="true"></i> Buy</a>
                   {% else %}
-                    <a class="action-button" href="{% url 'login' %}?next={% url 'checkout' %}%3Fbook={{ book.pk }}">🛒 Buy</a>
+                    <a class="action-button" href="{% url 'login' %}?next={% url 'checkout' %}%3Fbook={{ book.pk }}"><i class="fa fa-cart-shopping" aria-hidden="true"></i> Buy</a>
                   {% endif %}
                 </div>
               </div>

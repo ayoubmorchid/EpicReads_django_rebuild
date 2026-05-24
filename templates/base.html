@@ -16,7 +16,9 @@
         <a href="{% url 'home' %}" class="logo-link">EpicReads</a>
       </div>
 
-      <button class="menu-toggle" type="button" aria-label="Toggle Menu" data-menu-toggle>☰</button>
+      <button class="menu-toggle" type="button" aria-label="Toggle Menu" data-menu-toggle>
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
 
       <ul class="nav-links" data-nav-links>
         <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
@@ -60,7 +62,9 @@
 
   {% block footer %}{% endblock %}
 
-  <button class="scroll-top-btn" type="button" data-scroll-top hidden>↑</button>
+  <button class="scroll-top-btn" type="button" data-scroll-top hidden>
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </button>
   <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
