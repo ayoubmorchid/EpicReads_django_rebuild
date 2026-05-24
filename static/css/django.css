@@ -1923,3 +1923,214 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Style refresh: responsive layout polish */
+@media (max-width: 1200px) {
+  .books-container .title {
+    margin-left: 250px;
+    max-width: calc(100% - 280px);
+  }
+
+  .book-grid {
+    gap: 18px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    min-height: 68px;
+  }
+
+  .home-modern,
+  .about-modern,
+  .contact-container {
+    padding-top: 96px;
+  }
+
+  .home-hero,
+  .about-hero {
+    gap: 26px;
+    padding: 28px;
+  }
+
+  .home-hero h1,
+  .about-hero h1 {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero-stats div {
+    min-width: 0;
+  }
+
+  .books-container {
+    padding-top: 92px;
+  }
+
+  .books-container .title {
+    margin: 18px 16px 8px;
+    max-width: none;
+  }
+
+  .sidebar {
+    margin-top: 18px;
+    padding: 18px;
+    position: static;
+  }
+
+  .sidebar .search-bar {
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .main-content,
+  .books-grid {
+    margin-left: 0;
+  }
+
+  .books-container .favorites-popup {
+    height: calc(100vh - 68px);
+    top: 68px;
+  }
+
+  .checkout-actions,
+  .popup-actions,
+  .favorite-actions {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .logo-link {
+    font-size: 1.45rem;
+  }
+
+  .nav-item a,
+  .auth-link,
+  .logout-btn {
+    width: 100%;
+  }
+
+  .home-hero-actions,
+  .detail-actions,
+  .checkout-actions,
+  .popup-actions {
+    flex-direction: column;
+  }
+
+  .home-hero-actions a,
+  .detail-actions a,
+  .detail-actions form,
+  .checkout-actions button,
+  .popup-actions button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-book-stack {
+    min-height: 290px;
+  }
+
+  .hero-main-image {
+    max-height: 275px;
+    right: 26px;
+  }
+
+  .cover-one {
+    left: 4px;
+    top: 18px;
+  }
+
+  .cover-two {
+    bottom: 8px;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+
+  .contact-form {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .home-modern,
+  .about-modern,
+  .contact-container,
+  .favorites-page,
+  .detail-page,
+  .form-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .home-hero,
+  .about-hero,
+  .about-story,
+  .reader-love-section,
+  .modern-team,
+  .detail-card,
+  .book-form-card,
+  .favorites-empty {
+    padding: 20px;
+  }
+
+  .modern-book-row,
+  .category-showcase,
+  .why-grid,
+  .testimonial-grid,
+  .mission-vision-grid,
+  .reader-love-grid,
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-grid {
+    gap: 16px !important;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .action-button,
+  .actions button,
+  .inline-action-form {
+    width: 100%;
+  }
+
+  .footer-main {
+    text-align: center;
+  }
+
+  .footer-column a {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .payment-details,
+  .item {
+    flex-direction: column;
+  }
+
+  .cart-line-actions {
+    align-items: stretch;
+    margin-left: 0;
+    width: 100%;
+  }
+}
