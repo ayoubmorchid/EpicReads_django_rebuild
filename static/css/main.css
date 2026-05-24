@@ -1,37 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap");
 
 /* =========================
    GLOBAL VARIABLES
 ========================= */
 :root {
   /* Colors */
-  --background-color: #fdf8f3;
-  --primary-color: #8b5e3c;
+  --background-color: #fbf4ec;
+  --surface-color: #fffaf5;
+  --primary-color: #7a4f32;
   --secondary-color: #ffffff;
-  --hover-color: #6f472d;
+  --hover-color: #5f3b24;
 
-  --text-color: #2d1b12;
-  --subtext-color: #7c5a45;
+  --text-color: #241915;
+  --subtext-color: #765e50;
 
-  --accent-color: #c08a5b;
+  --accent-color: #d69b5f;
+  --accent-soft: #f4dfc8;
+  --ink-muted: #9a8170;
   --danger-color: #b91c1c;
 
-
   /* UI */
-  --box-shadow-color: rgba(99, 102, 241, 0.15);
-  --border-color: #334155;
-
-  /* UI */
-  --box-shadow-color: rgba(43, 33, 24, 0.12);
-  --border-color: #e6d8c8;
+  --box-shadow-color: rgba(52, 36, 26, 0.13);
+  --box-shadow-strong: rgba(52, 36, 26, 0.24);
+  --border-color: #ead9c7;
+  --border-strong: #d8b995;
 
   /* Typography */
-  --font-family-main: 'Roboto', 'Open Sans', Arial, sans-serif;
+  --font-family-main: 'Open Sans', Arial, sans-serif;
+  --font-family-display: 'Playfair Display', Georgia, serif;
 
   /* Radius */
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 18px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
 }
 
 /* =========================
@@ -53,14 +54,10 @@ body {
   padding: 0;
   font-family: var(--font-family-main);
   color: var(--text-color);
-  background: linear-gradient(
-    120deg,
-    var(--primary-color),
-    var(--secondary-color),
-    var(--background-color)
-  );
-  background-size: 300% 300%;
-  animation: gradientBG 8s ease infinite;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 245, 0.86), rgba(251, 244, 236, 0.96)),
+    var(--background-color);
+  line-height: 1.6;
 }
 
 /* =========================
@@ -70,6 +67,14 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
   color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-family-display);
+  letter-spacing: 0;
 }
 
 label {
@@ -82,14 +87,15 @@ label {
 input {
   width: 100%;
   padding: 10px;
-  border: 1px solid var(--box-shadow-color);
-  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus {
-  border-color: var(--hover-color);
-  box-shadow: 0 0 5px var(--hover-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(214, 155, 95, 0.18);
 }
 
 /* =========================
