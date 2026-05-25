@@ -1805,6 +1805,10 @@ input:focus {
   top: 36px;
 }
 
+.auth-brand:hover {
+  color: var(--accent-soft);
+}
+
 .auth-kicker {
   color: var(--accent-soft);
   font-size: 0.78rem;
@@ -1923,6 +1927,21 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(214, 155, 95, 0.18);
 }
 
+.auth-page .error-text {
+  background: rgba(185, 28, 28, 0.08);
+  border: 1px solid rgba(185, 28, 28, 0.16);
+  border-radius: 8px;
+  color: var(--danger-color);
+  font-size: 0.86rem;
+  font-weight: 700;
+  margin: 8px 0 0;
+  padding: 8px 10px;
+}
+
+.auth-page form > .error-text {
+  margin-bottom: 16px;
+}
+
 .login-btn {
   width: 100%;
   background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
@@ -1965,6 +1984,15 @@ input:focus {
 
 .forgot-link:hover {
   text-decoration: underline;
+}
+
+.forgot-link:focus-visible,
+.signup-redirect .signup-link:focus-visible,
+.login-redirect .login-link:focus-visible,
+.auth-brand:focus-visible {
+  border-radius: 6px;
+  box-shadow: 0 0 0 3px rgba(214, 155, 95, 0.32);
+  outline: none;
 }
 
 /* =========================
@@ -2024,6 +2052,11 @@ input:focus {
 .signup-redirect .signup-link:hover,
 .login-redirect .login-link:hover {
   text-decoration: underline;
+}
+
+.signup-redirect p,
+.login-redirect p {
+  margin: 0;
 }
 
 /* =========================
