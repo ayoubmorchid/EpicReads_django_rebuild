@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -18,8 +20,27 @@ def env_list(name, default=""):
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-this-key-before-production")
 DEBUG = env_bool("DJANGO_DEBUG", True)
-ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,testserver,0.0.0.0")
+
+VERCEL_ALLOWED_HOSTS = [
+    ".vercel.app",
+    "ayoub-epicreads.vercel.app",
+]
+
+VERCEL_CSRF_TRUSTED_ORIGINS = [
+    "https://*.vercel.app",
+    "https://ayoub-epicreads.vercel.app",
+]
+
+ALLOWED_HOSTS = env_list(
+    "DJANGO_ALLOWED_HOSTS",
+    "127.0.0.1,localhost,testserver,0.0.0.0",
+)
+ALLOWED_HOSTS = list(dict.fromkeys([*ALLOWED_HOSTS, *VERCEL_ALLOWED_HOSTS]))
+
 CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
+CSRF_TRUSTED_ORIGINS = list(
+    dict.fromkeys([*CSRF_TRUSTED_ORIGINS, *VERCEL_CSRF_TRUSTED_ORIGINS])
+)
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -62,16 +83,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "bookhaven_django.wsgi.application"
 
-if os.getenv("POSTGRES_DB"):
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("POSTGRES_DB", "bookhaven"),
-            "USER": os.getenv("POSTGRES_USER", "bookhaven"),
-            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "bookhaven_password"),
-            "HOST": os.getenv("POSTGRES_HOST", "db"),
-            "PORT": os.getenv("POSTGRES_PORT", "5432"),
-        }
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
     }
 else:
     DATABASES = {
