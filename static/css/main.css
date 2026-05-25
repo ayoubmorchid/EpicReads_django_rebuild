@@ -1762,6 +1762,10 @@ input:focus {
   z-index: 1;
 }
 
+.register-page .auth-shell {
+  grid-template-columns: minmax(0, 0.95fr) minmax(380px, 450px);
+}
+
 .auth-aside {
   background:
     linear-gradient(135deg, rgba(36, 25, 21, 0.92), rgba(95, 59, 36, 0.88)),
@@ -2152,7 +2156,8 @@ input:focus {
     padding: 26px 16px;
   }
 
-  .auth-shell {
+  .auth-shell,
+  .register-page .auth-shell {
     grid-template-columns: 1fr;
     max-width: 520px;
   }
@@ -2179,6 +2184,17 @@ input:focus {
   .login-container,
   .register-container {
     padding: 30px 24px;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 861px) {
+  .auth-page {
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .auth-aside {
+    min-height: 520px;
   }
 }
 
