@@ -20,14 +20,15 @@
       </div>
     </div>
 
-    <fieldset class="auth-card">
+    <div class="auth-card">
       <div class="login-container">
         <div class="auth-card-heading">
           <p>Member sign in</p>
           <h2>Log In</h2>
         </div>
-        <form method="post">
+        <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
+          {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
           {% if form.non_field_errors %}<p class="error-text">{{ form.non_field_errors|striptags }}</p>{% endif %}
           <div class="input-group">
             <label for="{{ form.username.id_for_label }}">Username or Email</label>
@@ -57,7 +58,7 @@
           <p>Don't have an account? <a href="{% url 'register' %}" class="signup-link">Sign up here</a></p>
         </div>
       </div>
-    </fieldset>
+    </div>
   </section>
 </div>
 {% endblock %}

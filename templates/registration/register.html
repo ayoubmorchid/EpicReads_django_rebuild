@@ -20,13 +20,13 @@
       </div>
     </div>
 
-    <fieldset class="auth-card">
+    <div class="auth-card">
       <div class="register-container">
         <div class="auth-card-heading">
           <p>Create account</p>
           <h2>Sign Up</h2>
         </div>
-        <form method="post">
+        <form method="post" action="{% url 'register' %}">
           {% csrf_token %}
           {% if form.non_field_errors %}<p class="error-text">{{ form.non_field_errors|striptags }}</p>{% endif %}
           <div class="input-group">
@@ -63,7 +63,7 @@
           <p>Already have an account? <a href="{% url 'login' %}" class="login-link">Log in here</a></p>
         </div>
       </div>
-    </fieldset>
+    </div>
   </section>
 </div>
 {% endblock %}
