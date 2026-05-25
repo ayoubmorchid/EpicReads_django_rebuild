@@ -1746,8 +1746,9 @@ input:focus {
   display: flex;
   justify-content: center;
   min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
-  padding: 48px 22px;
+  padding: 24px 20px;
   position: relative;
 }
 
@@ -1755,16 +1756,16 @@ input:focus {
   align-items: stretch;
   animation: authPanelIn 0.55s ease both;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 430px);
+  grid-template-columns: minmax(0, 0.95fr) minmax(340px, 400px);
   isolation: isolate;
-  max-width: 980px;
+  max-width: 900px;
   position: relative;
   width: 100%;
   z-index: 1;
 }
 
 .register-page .auth-shell {
-  grid-template-columns: minmax(0, 0.95fr) minmax(380px, 450px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 420px);
 }
 
 .auth-aside {
@@ -1776,9 +1777,9 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 590px;
+  min-height: 520px;
   overflow: hidden;
-  padding: 44px;
+  padding: 36px;
   position: relative;
 }
 
@@ -1799,10 +1800,10 @@ input:focus {
   font-family: var(--font-family-display);
   font-size: 1.45rem;
   font-weight: 800;
-  left: 44px;
+  left: 36px;
   position: absolute;
   text-decoration: none;
-  top: 36px;
+  top: 28px;
 }
 
 .auth-brand:hover {
@@ -1814,21 +1815,21 @@ input:focus {
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   text-transform: uppercase;
 }
 
 .auth-aside h1 {
   color: #ffffff;
-  font-size: 2.7rem;
-  line-height: 1.05;
-  margin: 0 0 16px;
-  max-width: 440px;
+  font-size: 2.25rem;
+  line-height: 1.08;
+  margin: 0 0 12px;
+  max-width: 390px;
 }
 
 .auth-copy {
   color: rgba(255, 250, 245, 0.84);
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin: 0;
   max-width: 400px;
 }
@@ -1837,7 +1838,7 @@ input:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
 .auth-highlights span {
@@ -1847,7 +1848,7 @@ input:focus {
   border-radius: 999px;
   display: inline-flex;
   gap: 8px;
-  padding: 9px 13px;
+  padding: 8px 12px;
 }
 
 .auth-card {
@@ -1866,12 +1867,12 @@ input:focus {
 .login-container {
   background: transparent;
   box-shadow: none;
-  padding: 44px;
+  padding: 32px 34px;
   width: 100%;
 }
 
 .auth-card-heading {
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
@@ -1886,25 +1887,25 @@ input:focus {
 
 .auth-card-heading h2 {
   color: var(--text-color);
-  font-size: 2.1rem;
+  font-size: 1.85rem;
   line-height: 1.1;
   margin: 0;
   text-align: left;
 }
 
 .input-group {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .register-container .input-group {
-  margin-bottom: 14px;
+  margin-bottom: 11px;
 }
 
 .auth-page label {
   color: var(--subtext-color);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .auth-page input {
@@ -1912,9 +1913,9 @@ input:focus {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--text-color);
-  font-size: 0.98rem;
-  min-height: 48px;
-  padding: 12px 14px;
+  font-size: 0.95rem;
+  min-height: 42px;
+  padding: 10px 13px;
 }
 
 .auth-page input:hover {
@@ -1932,21 +1933,21 @@ input:focus {
   border: 1px solid rgba(185, 28, 28, 0.16);
   border-radius: 8px;
   color: var(--danger-color);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 700;
   margin: 8px 0 0;
-  padding: 8px 10px;
+  padding: 7px 9px;
 }
 
 .auth-page form > .error-text {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .login-btn {
   width: 100%;
   background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
   color: white;
-  padding: 13px 18px;
+  padding: 11px 18px;
   border: none;
   border-radius: 999px;
   font-size: 16px;
@@ -1955,7 +1956,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 48px;
+  min-height: 44px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -1972,7 +1973,7 @@ input:focus {
 
 .forgot-password {
   text-align: center;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .forgot-link {
@@ -2001,7 +2002,7 @@ input:focus {
 .register-container {
   background: transparent;
   box-shadow: none;
-  padding: 38px 44px;
+  padding: 28px 34px;
   position: relative;
   width: 100%;
 }
@@ -2010,7 +2011,7 @@ input:focus {
   width: 100%;
   background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
   color: white;
-  padding: 13px 18px;
+  padding: 11px 18px;
   border: none;
   border-radius: 999px;
   font-size: 16px;
@@ -2019,7 +2020,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 48px;
+  min-height: 44px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -2037,7 +2038,7 @@ input:focus {
 .signup-redirect,
 .login-redirect {
   text-align: center;
-  margin-top: 22px;
+  margin-top: 16px;
   color: var(--text-color);
   font-size: 14px;
 }
@@ -2071,7 +2072,7 @@ input:focus {
   font-weight: 800;
   gap: 12px;
   letter-spacing: 0.05em;
-  margin: 22px 0 16px;
+  margin: 16px 0 12px;
   text-transform: uppercase;
 }
 
@@ -2086,7 +2087,7 @@ input:focus {
 .social-login {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .social-login a {
@@ -2095,10 +2096,10 @@ input:focus {
   border: 1px solid var(--border-color);
   border-radius: 999px;
   display: inline-flex;
-  height: 44px;
+  height: 38px;
   justify-content: center;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  width: 44px;
+  width: 38px;
 }
 
 .social-login a:hover {
@@ -2108,8 +2109,8 @@ input:focus {
 }
 
 .social-login img {
-  width: 24px;
-  height: 24px;
+  width: 21px;
+  height: 21px;
   cursor: pointer;
 }
 
@@ -2130,8 +2131,8 @@ input:focus {
    AUTH MOVING CIRCLES
 ========================= */
 .circle1 {
-  height: 260px;
-  width: 260px;
+  height: 210px;
+  width: 210px;
   background: linear-gradient(135deg, rgba(214, 155, 95, 0.38), rgba(122, 79, 50, 0.32));
   border-radius: 50%;
   position: absolute;
@@ -2162,8 +2163,8 @@ input:focus {
 }
 
 .circle2 {
-  height: 230px;
-  width: 230px;
+  height: 190px;
+  width: 190px;
   background: linear-gradient(135deg, rgba(95, 59, 36, 0.22), rgba(214, 155, 95, 0.34));
   border-radius: 50%;
   position: absolute;
@@ -2207,7 +2208,9 @@ input:focus {
 
 @media (max-width: 860px) {
   .auth-page {
-    padding: 26px 16px;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 18px 16px;
   }
 
   .auth-shell,
@@ -2218,8 +2221,8 @@ input:focus {
 
   .auth-aside {
     border-radius: 8px 8px 0 0;
-    min-height: 260px;
-    padding: 82px 28px 30px;
+    min-height: auto;
+    padding: 70px 26px 24px;
   }
 
   .auth-brand {
@@ -2228,7 +2231,7 @@ input:focus {
   }
 
   .auth-aside h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .auth-card {
@@ -2237,29 +2240,29 @@ input:focus {
 
   .login-container,
   .register-container {
-    padding: 30px 24px;
+    padding: 24px 22px;
   }
 }
 
 @media (max-height: 720px) and (min-width: 861px) {
   .auth-page {
-    align-items: flex-start;
-    overflow-y: auto;
+    padding-bottom: 16px;
+    padding-top: 16px;
   }
 
   .auth-aside {
-    min-height: 520px;
+    min-height: 480px;
   }
 }
 
 @media (max-width: 520px) {
   .auth-page {
     align-items: flex-start;
-    padding: 16px;
+    padding: 12px;
   }
 
   .auth-aside {
-    min-height: 230px;
+    padding: 62px 20px 22px;
   }
 
   .auth-copy,
@@ -2268,7 +2271,12 @@ input:focus {
   }
 
   .auth-card-heading h2 {
-    font-size: 1.8rem;
+    font-size: 1.65rem;
+  }
+
+  .login-container,
+  .register-container {
+    padding: 22px 18px;
   }
 
   .circle1,
