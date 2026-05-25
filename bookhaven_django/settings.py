@@ -20,12 +20,10 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-this-key-bef
 DEBUG = env_bool("DJANGO_DEBUG", True)
 
 VERCEL_ALLOWED_HOSTS = [
-    "epic-reads-django-rebuild.vercel.app",
-    "epic-reads-django-rebuild-p0g9cl71e-ayoubmorchids-projects.vercel.app",
+    ".vercel.app",
 ]
 VERCEL_CSRF_TRUSTED_ORIGINS = [
-    "https://epic-reads-django-rebuild.vercel.app",
-    "https://epic-reads-django-rebuild-p0g9cl71e-ayoubmorchids-projects.vercel.app",
+    "https://*.vercel.app",
 ]
 
 ALLOWED_HOSTS = env_list(
