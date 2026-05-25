@@ -18,8 +18,26 @@ def env_list(name, default=""):
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-change-this-key-before-production")
 DEBUG = env_bool("DJANGO_DEBUG", True)
-ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,testserver,0.0.0.0")
+
+VERCEL_ALLOWED_HOSTS = [
+    "epic-reads-django-rebuild.vercel.app",
+    "epic-reads-django-rebuild-p0g9cl71e-ayoubmorchids-projects.vercel.app",
+]
+VERCEL_CSRF_TRUSTED_ORIGINS = [
+    "https://epic-reads-django-rebuild.vercel.app",
+    "https://epic-reads-django-rebuild-p0g9cl71e-ayoubmorchids-projects.vercel.app",
+]
+
+ALLOWED_HOSTS = env_list(
+    "DJANGO_ALLOWED_HOSTS",
+    "127.0.0.1,localhost,testserver,0.0.0.0",
+)
+ALLOWED_HOSTS = list(dict.fromkeys([*ALLOWED_HOSTS, *VERCEL_ALLOWED_HOSTS]))
+
 CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
+CSRF_TRUSTED_ORIGINS = list(
+    dict.fromkeys([*CSRF_TRUSTED_ORIGINS, *VERCEL_CSRF_TRUSTED_ORIGINS])
+)
 
 INSTALLED_APPS = [
     "django.contrib.admin",
