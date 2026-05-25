@@ -4,44 +4,60 @@
 {% block navbar %}{% endblock %}
 
 {% block content %}
-<div class="login-page">
+<div class="login-page auth-page">
   <div class="circle1"></div>
   <div class="circle2"></div>
 
-  <fieldset>
-    <div class="login-container">
-      <h2>Login</h2>
-      <form method="post">
-        {% csrf_token %}
-        {% if form.non_field_errors %}<p class="error-text">{{ form.non_field_errors|striptags }}</p>{% endif %}
-        <div class="input-group">
-          <label for="{{ form.username.id_for_label }}">Username or Email</label>
-          {{ form.username }}
-          {% for error in form.username.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
-        </div>
-        <div class="input-group">
-          <label for="{{ form.password.id_for_label }}">Password</label>
-          {{ form.password }}
-          {% for error in form.password.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
-        </div>
-        <button type="submit" class="login-btn">Log In</button>
-      </form>
-
-      <div class="forgot-password">
-        <a href="{% url 'contact' %}" class="forgot-link">Forgot your password?</a>
-      </div>
-
-      <div class="or">Or Log in with</div>
-      <div class="social-login">
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Log in with Facebook"><img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook"></a>
-        <a href="https://accounts.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Log in with Google"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"></a>
-        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Log in with Twitter"><img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter"></a>
-      </div>
-
-      <div class="signup-redirect">
-        <p>Don't have an account? <a href="{% url 'register' %}" class="signup-link">Sign up here</a></p>
+  <section class="auth-shell" aria-label="EpicReads login">
+    <div class="auth-aside">
+      <a href="{% url 'home' %}" class="auth-brand">EpicReads</a>
+      <p class="auth-kicker">Digital Library Access</p>
+      <h1>Welcome back to your reading shelf.</h1>
+      <p class="auth-copy">Log in to continue discovering curated books, favorites, and your next great read.</p>
+      <div class="auth-highlights" aria-label="Library highlights">
+        <span><i class="fa fa-book-open" aria-hidden="true"></i> Curated catalog</span>
+        <span><i class="fa fa-heart" aria-hidden="true"></i> Saved favorites</span>
       </div>
     </div>
-  </fieldset>
+
+    <fieldset class="auth-card">
+      <div class="login-container">
+        <div class="auth-card-heading">
+          <p>Member sign in</p>
+          <h2>Log In</h2>
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          {% if form.non_field_errors %}<p class="error-text">{{ form.non_field_errors|striptags }}</p>{% endif %}
+          <div class="input-group">
+            <label for="{{ form.username.id_for_label }}">Username or Email</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+          </div>
+          <div class="input-group">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+            {% for error in form.password.errors %}<p class="error-text">{{ error }}</p>{% endfor %}
+          </div>
+          <button type="submit" class="login-btn">Log In</button>
+        </form>
+
+        <div class="forgot-password">
+          <a href="{% url 'contact' %}" class="forgot-link">Forgot your password?</a>
+        </div>
+
+        <div class="or">Or Log in with</div>
+        <div class="social-login">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Log in with Facebook"><img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook"></a>
+          <a href="https://accounts.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Log in with Google"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"></a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Log in with Twitter"><img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter"></a>
+        </div>
+
+        <div class="signup-redirect">
+          <p>Don't have an account? <a href="{% url 'register' %}" class="signup-link">Sign up here</a></p>
+        </div>
+      </div>
+    </fieldset>
+  </section>
 </div>
 {% endblock %}
