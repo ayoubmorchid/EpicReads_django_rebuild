@@ -1891,8 +1891,6 @@
   border-radius: 999px;
 }
 
-.login-container,
-.register-container,
 .container,
 .checkout-popup {
   background: rgba(255, 250, 245, 0.96);
@@ -1901,8 +1899,8 @@
   box-shadow: 0 18px 42px rgba(52, 36, 26, 0.16);
 }
 
-.login-page fieldset,
-.register-page fieldset {
+.login-page fieldset:not(.auth-card),
+.register-page fieldset:not(.auth-card) {
   border: none;
   box-shadow: none;
 }

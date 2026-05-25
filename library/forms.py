@@ -20,6 +20,35 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+        widgets = {
+            "username": forms.TextInput(
+                attrs={
+                    "autocomplete": "username",
+                    "placeholder": "Choose a username",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "autocomplete": "email",
+                    "placeholder": "you@example.com",
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["password1"].widget.attrs.update(
+            {
+                "autocomplete": "new-password",
+                "placeholder": "Create a password",
+            }
+        )
+        self.fields["password2"].widget.attrs.update(
+            {
+                "autocomplete": "new-password",
+                "placeholder": "Confirm your password",
+            }
+        )
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -30,7 +59,26 @@ class RegisterForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label="Username or Email")
+    username = forms.CharField(
+        label="Username or Email",
+        widget=forms.TextInput(
+            attrs={
+                "autocomplete": "username",
+                "autofocus": True,
+                "placeholder": "Username or email",
+            }
+        ),
+    )
+    password = forms.CharField(
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "current-password",
+                "placeholder": "Your password",
+            }
+        ),
+    )
 
     def clean(self):
         username = self.cleaned_data.get("username")
