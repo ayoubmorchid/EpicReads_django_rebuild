@@ -54,4 +54,5 @@ git push origin feature/your-feature-name
 
 ## Team / Authors
 
-- EpicReads Team
+- ANAS-RACHDI
+- ayoubmorchid
