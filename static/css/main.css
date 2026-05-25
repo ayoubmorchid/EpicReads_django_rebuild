@@ -1753,6 +1753,7 @@ input:focus {
 
 .auth-shell {
   align-items: stretch;
+  animation: authPanelIn 0.55s ease both;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(360px, 430px);
   isolation: isolate;
@@ -1854,6 +1855,10 @@ input:focus {
   padding: 0;
 }
 
+.auth-card form {
+  margin: 0;
+}
+
 .login-container {
   background: transparent;
   box-shadow: none;
@@ -1885,6 +1890,10 @@ input:focus {
 
 .input-group {
   margin-bottom: 18px;
+}
+
+.register-container .input-group {
+  margin-bottom: 14px;
 }
 
 .auth-page label {
@@ -2134,6 +2143,18 @@ input:focus {
   box-shadow: 0 20px 45px rgba(52, 36, 26, 0.12);
 }
 
+@keyframes authPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes circle2-animation {
   0%,
   100% {
@@ -2220,6 +2241,20 @@ input:focus {
   .circle1,
   .circle2 {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-shell,
+  .circle1,
+  .circle2 {
+    animation: none;
+  }
+
+  .login-btn,
+  .signup-btn,
+  .social-login a {
+    transition: none;
   }
 }
 
