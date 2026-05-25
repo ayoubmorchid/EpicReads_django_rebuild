@@ -23,9 +23,12 @@ DEBUG = env_bool("DJANGO_DEBUG", True)
 
 VERCEL_ALLOWED_HOSTS = [
     ".vercel.app",
+    "ayoub-epicreads.vercel.app",
 ]
+
 VERCEL_CSRF_TRUSTED_ORIGINS = [
     "https://*.vercel.app",
+    "https://ayoub-epicreads.vercel.app",
 ]
 
 ALLOWED_HOSTS = env_list(
