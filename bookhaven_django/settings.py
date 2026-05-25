@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -78,16 +80,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "bookhaven_django.wsgi.application"
 
-if os.getenv("POSTGRES_DB"):
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("POSTGRES_DB", "bookhaven"),
-            "USER": os.getenv("POSTGRES_USER", "bookhaven"),
-            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "bookhaven_password"),
-            "HOST": os.getenv("POSTGRES_HOST", "db"),
-            "PORT": os.getenv("POSTGRES_PORT", "5432"),
-        }
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
     }
 else:
     DATABASES = {
